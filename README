@@ -1,0 +1,4 @@
+Install VirtualBox, Vagrant 
+Clone this repo
+do "vagrant up" in the repo directory
+Run jasmine tests locally with browser at file://localhost/[repodir]/app/index.html
