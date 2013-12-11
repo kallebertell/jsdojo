@@ -6,6 +6,8 @@ Sources
 
 * http://sporto.github.io/blog/2013/02/22/a-plain-english-guide-to-javascript-prototypes/
 * http://stackoverflow.com/questions/1592384/adding-prototype-to-object-literal
+* http://phrogz.net/JS/classes/OOPinJS2.html
+* http://stackoverflow.com/questions/310870/use-of-prototype-vs-this-in-javascript
 
 Basics
 
