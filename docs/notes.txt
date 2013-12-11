@@ -1,0 +1,21 @@
+Prototypes:
+
+* understanding __proto__ and function.prototype
+
+Sources
+
+* http://sporto.github.io/blog/2013/02/22/a-plain-english-guide-to-javascript-prototypes/
+* http://stackoverflow.com/questions/1592384/adding-prototype-to-object-literal
+
+Basics
+
+- var person = new Object() === var person = {}
+- function Foo() {}; Foo.__proto__ === Foo.prototype //=> false
+
+
+Facts
+
+* The prototype object is meant to be used on constructor functions, basically functions that will be called using the new operator to create new object instances
+* Every object in Javascript has a prototype
+* As confusing as it may sound, this "prototype" property is not the real prototype (__proto__) of the function.
+** 

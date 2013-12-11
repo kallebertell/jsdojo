@@ -1,4 +1,4 @@
-include_recipe "phantomjs"
+# include_recipe "phantomjs"
 include_recipe "npm"
 
 gem_package "compass" do
@@ -8,7 +8,7 @@ end
 npm_package "yo"
 npm_package "grunt-cli"
 npm_package "bower"
-npm_package "generator-angular"
+# npm_package "generator-angular"
 npm_package "generator-jasmine"
 
 # All npm modules do not install on windows otherwise because of super long file names
