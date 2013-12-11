@@ -3,24 +3,28 @@ Setup Dev Env
 
 Install VirtualBox
     https://www.virtualbox.org/wiki/Downloads
+    
 
 Install Vagrant    
     http://www.vagrantup.com/downloads.html 
+    
 
 Clone this repo including submodules
     git clone --recursive https://github.com/kallebertell/jsdojo.git
+    
 
 Cd into the dir
     cd jsdojo
+    
 
 Provision the virtual machine
     vagrant up
 
 Open up the app in a browser by opening this url
-     file://localhost/[repopath]/app/index.html
+    file://localhost/[repopath]/app/index.html
 
 Run the tests in a browser by opening this url
-     file://localhost/[repopath]/app/SpecRunner.html
+    file://localhost/[repopath]/app/SpecRunner.html
 
 
 
