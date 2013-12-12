@@ -80,6 +80,7 @@
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
     // One of the common usage of __proto__ is for inheritance pattern without calling the parent's constructor.
+    // See: http://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
 
     describe('Introduction the __proto__ property', function () {
 
@@ -87,13 +88,14 @@
 
         function Person() {}
 
-        // __proto__  is an empty function here because the function object has not been instanciated
+        // Not correct: __proto__  is an empty function here because the function object has not been instanciated
+        // Corrent: Person.__proto__ === Function.prototype
         expect(typeof Person.__proto__ === 'function').toBe(true);
         expect(typeof Object.getPrototypeOf(Person) === 'function').toBe(true);
 
         var man = new Person();
 
-        // After instanciation it's an object
+        // After instanciation it's an object --- WHY?
         expect(typeof man.__proto__ === 'object').toBe(true);
         expect(typeof Object.getPrototypeOf(man) === 'object').toBe(true);
         
