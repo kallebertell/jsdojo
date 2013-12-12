@@ -1,39 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Jasmine Spec Runner</title>
-        <link rel="stylesheet" href="bower_components/jasmine/lib/jasmine-core/jasmine.css">
-    </head>
-    <body>
-        <script src="bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
-        <script src="bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+<head>
+	<title>Our App</title>
+	<style>
 
-        <!-- include source files here... -->
+	</style>
+</head>
 
-        <!-- include spec files here... -->
-        <script src="spec/test.js"></script>
-        <script src="spec/prototypes_spec.js"></script>
+<body>
+	<h1>Our App</h1>
+	<p>
+		This is our app and this is where we have fun.
+		Have fun.
+	</p>
 
-        <script>
-            (function() {
-                var jasmineEnv = jasmine.getEnv();
-                jasmineEnv.updateInterval = 1000;
-                var htmlReporter = new jasmine.HtmlReporter();
-                jasmineEnv.addReporter(htmlReporter);
-                jasmineEnv.specFilter = function(spec) {
-                    return htmlReporter.specFilter(spec);
-                };
-                var currentWindowOnload = window.onload;
-                window.onload = function() {
-                    if (currentWindowOnload) {
-                        currentWindowOnload();
-                    }
-                    execJasmine();
-                };
-                function execJasmine() {
-                    jasmineEnv.execute();
-                }
-            })();
-        </script>
-    </body>
+	<div class="calculator">
+		<input class="a" type="text"> + <input class="b" type="text">
+		<button>Calculate</button>
+		<div class="result"></div>
+	</div>
+
+	<!-- Include libararies here -->
+	<script src="bower_components/jquery/jquery.js"></script>
+
+	<!-- Include our code here -->
+	<script src="src/communicator.js"></script>
+	<script src="src/tools.js"></script>
+
+	<script>
+	$(document).ready(function() {
+		communicator.shout("Welcome!");
+
+		var $calculatorEl = $('.calculator');
+		var $inputA = $calculatorEl.find('.a');
+		var $inputB = $calculatorEl.find('.b');
+		var $resultEl = $calculatorEl.find('.result');
+		var $buttonEl = $calculatorEl.find('button');
+
+		$buttonEl.click(function() {
+			var valueA = $inputA.val();
+			var valueB = $inputB.val();
+
+			addAndPrint(valueA, valueB, $resultEl);
+		});
+	});
+	</script>
+
+</body>
 </html>
