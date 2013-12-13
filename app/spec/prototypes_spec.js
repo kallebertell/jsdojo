@@ -1,229 +1,225 @@
-/*global describe, it */
-'use strict';
+describe("learning prototypes", function() {
 
-(function() {
-
-  describe('Prototypes', function () {
-
-    // ---------------------------------------------------------------------------------------------------------------------------------------
-
-    describe('Introduction to objects', function () {
+   describe('introduction to objects', function () {
      
-      it('should be an object when instantiated directly', function () {
+    it('should be an object when instantiated directly', function () {
 
-        var object1 = new Object(),
-            object2 = {};
+      var object1 = new Object(),
+          object2 = {};
 
-        expect(object1 instanceof Object).toBe(true);
-        expect(object2 instanceof Object).toBe(true);
-      });
-
-      it('should be an object when function object is created and then instantiated with the "new" keyword', function () {
-
-        var Person = function() {};
-
-        expect(Person instanceof Object).toBe(true);
-        expect(new Person() instanceof Object).toBe(true);
-      });
-
-      it('should be an object when using String or Number', function () {
-
-        var str = new String('hello'), 
-            number = new Number(0);
-
-        expect(str instanceof Object).toBe(true);
-        expect(number instanceof Object).toBe(true);
-      });
-
-      it('should not be an object when primitive', function () {
-
-        var str = 'hello',
-            number = 0;
-
-        expect(str instanceof Object).toBe(false);
-        expect(number instanceof Object).toBe(false);
-        expect(typeof str === 'string').toBe(true);
-        expect(typeof number === 'number').toBe(true);
-      });
-
+      expect(object1 instanceof Object).toBe(true);
+      expect(object2 instanceof Object).toBe(true);
     });
 
-    // ---------------------------------------------------------------------------------------------------------------------------------------
+    it('should be an object when function object is created and then instantiated with the "new" keyword', function () {
 
-    describe('Introduction to prototypes', function () {
+      var Person = function() {};
 
-      it('should create a prototype for a function object', function () {
-
-        var Person = function() {};
-
-        expect(Person.prototype).not.toBe(undefined);
-      });
-
-      it('should create an inaccessible prototype for a directly instanciated object', function () {
-
-        var object1 = {}, 
-            object2 = new Object();
-
-        expect(object1.prototype).toBe(undefined);
-        expect(object2.prototype).toBe(undefined);
-      });
-
-      it('should allow access to directly instanciated objects prototype using getPrototypeOf', function () {
-
-        var object1 = {},
-            object2 = new Object();
-
-        expect(Object.getPrototypeOf(object1)).not.toBe(undefined);
-        expect(Object.getPrototypeOf(object2)).not.toBe(undefined);
-      });
+      expect(Person instanceof Object).toBe(true);
+      expect(new Person() instanceof Object).toBe(true);
     });
 
-    // ---------------------------------------------------------------------------------------------------------------------------------------
-    // One of the common usage of __proto__ is for inheritance pattern without calling the parent's constructor.
-    // See: http://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
+    it('should be an object when using String or Number', function () {
 
-    describe('Introduction the __proto__ property', function () {
+      var str = new String('hello'), 
+          number = new Number(0);
 
-      it('should assign o.__proto__ when function object is instanciated', function () {
-
-        function Person() {}
-
-        // Not correct: __proto__  is an empty function here because the function object has not been instanciated
-        // Corrent: Person.__proto__ === Function.prototype
-        expect(typeof Person.__proto__ === 'function').toBe(true);
-        expect(typeof Object.getPrototypeOf(Person) === 'function').toBe(true);
-
-        var man = new Person();
-
-        // After instanciation it's an object --- WHY?
-        expect(typeof man.__proto__ === 'object').toBe(true);
-        expect(typeof Object.getPrototypeOf(man) === 'object').toBe(true);
-        
-        // ...and to be more precise it's the Person.prototype
-        expect(man.__proto__).toBe(Person.prototype);
-        expect(Object.getPrototypeOf(man)).toBe(Person.prototype);
-        expect(Person.prototype.isPrototypeOf(man)).toBe(true); // Same as the line above
-
-        // And of course the prototype of Person is Object
-        expect(Object.prototype.isPrototypeOf(Person)).toBe(true);
-      });
-
+      expect(str instanceof Object).toBe(true);
+      expect(number instanceof Object).toBe(true);
     });
 
-    // ---------------------------------------------------------------------------------------------------------------------------------------
+    it('should not be an object when primitive', function () {
 
-    describe('Introduction to prototype inheritance', function () {
+      var str = 'hello',
+          number = 0;
 
-      it('should inherit from Function if a function object', function () {
-        
-        function Person() {}
-
-        expect(Function.prototype.isPrototypeOf(Person)).toBe(true);
-        expect(Object.prototype.isPrototypeOf(Function)).toBe(true);
-      });
-
-      /* Prototype chain:
-       *          Prototype             Prototype                        Prototype
-       *  child -------------> parent -------------> Object.prototype  -------------> null
-       */
-      it('should assign parent as childs prototype and object as parents when using directly instanciated object', function () {
-
-        var parent = {},
-            child = Object.create(parent);
-
-        expect(Object.getPrototypeOf(parent).isPrototypeOf(child)).toBe(true);
-        expect(Object.prototype.isPrototypeOf(parent)).toBe(true);
-      });
-
-      it('should assign parent as childs prototype and object as parents when using function objects', function () {
-
-        function Parent() {}
-        function Child() {}
-
-        Child.prototype = new Parent();
-
-        var child = new Child();
-
-        expect(Object.getPrototypeOf(Parent).isPrototypeOf(Child)).toBe(true);
-        expect(Object.getPrototypeOf(new Parent()).isPrototypeOf(child)).toBe(true); // TODO: explain this somewhere
-        expect(Object.prototype.isPrototypeOf(parent)).toBe(true);
-      });        
+      expect(str instanceof Object).toBe(false);
+      expect(number instanceof Object).toBe(false);
+      expect(typeof str === 'string').toBe(true);
+      expect(typeof number === 'number').toBe(true);
     });
-
-    it('should be able to call inherited parent functions', function () {
-
-      var msg = 'yak yak yak yak'
-
-      function Parent(message) {
-        this.say = function() {
-          return msg;
-        }
-      }
-
-      function Child() {}
-
-      Child.prototype = new Parent();
-
-      var child = new Child();
-
-      expect(new Parent(msg).say()).toBe(msg);
-      expect(child.say()).toBe(msg);
-    });
-
-    it('should be able to call inherited parent prototype functions', function () {
-
-      function Vehicle() {}
-
-      Vehicle.prototype.maxSpeed = function() {
-        return 100;
-      }
-
-      function Car() {}
-
-      Car.prototype = new Vehicle();
-
-      var lada = new Car();
-
-      expect(lada.maxSpeed()).toBe(100);
-
-    });
-
-    it('should be very clear to everyone when to use this and when prototype', function () {
-      
-      function Vehicle() {}
-
-      Vehicle.prototype.maxSpeed = function() {
-        return 100;
-      }
-
-      Vehicle.prototype.updateMaxSpeed = function(value) {
-          Vehicle.prototype.maxSpeed = function() {
-              return value;
-          }
-      }
-
-      function Car() {}
-      Car.prototype = new Vehicle();
-
-      function Airplane() {}
-      Airplane.prototype = new Vehicle();
-
-      var car = new Car();
-      var airplane = new Airplane();
-
-      expect(car.maxSpeed()).toBe(100);
-      expect(car.maxSpeed()).toBe(100);
-
-      car.updateMaxSpeed(200);
-
-      expect(car.maxSpeed()).toBe(200);
-      expect(airplane.maxSpeed()).toBe(200); // NOTE: speed changed for airplane instance also!
-
-    });      
-
-    // TODO:
-    // Inheritance & constructors (+ why overriding is important)    
 
   });
 
-})();
+  // TODO: A Function Declaration vs. Function Expressions
+  // http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/
+
+  // TODO: Chrome dev tools printing and named functions
+  // console.dir(function F() {}); var f = function() {}; console.dir(f)
+  // http://stackoverflow.com/questions/13744344/prototype-difference-between-function-declaration-and-expression
+
+  describe("functions and the prototype property", function() {
+
+    // Every function gets a prototype (ie. prototype is always a property of a function object)
+    it("should create prototype for a function", function() {
+      
+      function Parent() {}
+      
+      expect(Parent.prototype).not.toBe(undefined);
+
+    });
+
+    // Function objects inherit from Function.prototype
+    it("should inherit from Function.prototype", function() {
+      
+      function Parent() {}
+
+      expect(Function.prototype.isPrototypeOf(Parent)).toBe(true);
+    });
+
+    // A function’s prototype property is the object that will be assigned as the prototype to all 
+    // instances created when this function is used as a constructor.
+    it("should assign function's prototype as the prototype for new instance", function() {
+      
+      function Parent() {}
+
+      var instance = new Parent();
+
+      expect(Parent.prototype.isPrototypeOf(instance)).toBe(true);
+    });
+ 
+    // All objects inherit a constructor property from their prototype
+    it("should inherit a constructor property from its prototype", function() {
+
+      function Parent() {}
+
+      expect(Parent.constructor).toBe(Function.constructor);
+
+      // Parent.constructor is not actually a property of the Parent function
+      // The call gues up in the inheritance chain to the inherited Function.prototype
+      expect(Parent.hasOwnProperty('constructor')).toBe(false);
+      expect(Parent.prototype.hasOwnProperty('constructor')).toBe(true);
+
+      // Here the assertion happens without inheritance
+      expect(Object.getPrototypeOf(Parent).constructor).toBe(Function.prototype.constructor);
+    });
+
+    // Since every function gets a prototype, the constructor function has one too
+    it("should have a prototype if is a constructor", function() {
+
+      function Parent() {}
+      
+      expect(Parent.constructor.prototype).not.toBe(undefined);
+    });
+
+    // We need to go deeper: every function has a prototype + all objects inherit a constructor property from their prototype
+    it("should go deeper", function() {
+
+      function Parent(foo) {}
+      
+      // So the constructor is a function and it has a prototype
+      expect(typeof Parent.constructor).toBe('function');
+      expect(Parent.constructor.prototype).not.toBe(undefined);
+
+      // But wait, the constructor prototype is an object... so it must have a constructor?
+      expect(Parent.constructor.prototype.constructor).not.toBe(undefined);
+
+      // And logically this constructor should have a prototype since it's a function
+      expect(Parent.constructor.prototype.constructor.prototype).not.toBe(undefined);
+
+      // ...and so on. Luckily this behaviour is expected and not actually infinite:
+      //
+      // Object.prototype.constructor: Returns a reference to the Object function that created the instance's prototype. Note 
+      // that the value of this property is a reference to the function itself, not a string containing the function's name.
+    });
+  });
+
+  describe("objects and the prototype property", function() {
+
+    // The prototype object is meant to be used on constructor functions, basically functions
+    // that will be called using the new operator to create new object instances.
+    it("should not create a prototype property for an object literal", function() {
+      
+      var o = {};
+
+      expect(o.prototype).toBe(undefined);
+    });
+
+    it("should not create a prototype property for an object literal when using Object.create", function() {
+      
+      var o1 = Object.create(Object.prototype),
+          o2 = Object.create(Function.prototype);
+
+      expect(o1.prototype).toBe(undefined);
+      expect(o2.prototype).toBe(undefined);
+    });
+
+    it("should inherit from Object.prototype when an object literal", function() {
+      
+      var o = {};
+
+      expect(Object.getPrototypeOf(o)).toBe(Object.prototype);
+    });
+
+  });
+
+  // When an object is created, its __proto__ property is set to reference the same object as its 
+  // internal [[Prototype]] (i.e. its constructor's prototype object)
+  describe("the __proto__ property", function() {
+
+    it("should assign its internal __proto__ property to its parents prototype", function() {
+      
+      function Parent() {}
+      var o = {};
+      
+      expect(Parent.__proto__).toBe(Function.prototype);
+      expect(o.__proto__).toBe(Object.prototype);
+
+    });
+
+    it("should assign instanciated object internal __proto__ to its constructor's prototype object", function() {
+
+      function Parent() {}
+
+      var p = new Parent();
+
+      expect(p.__proto__).toBe(Parent.prototype);
+    });
+
+    it("should not have an internal prototype property when an instance", function() {
+
+      function Parent() {}
+
+      var p = new Parent();
+
+      expect(p.prototype).toBe(undefined);
+    });
+
+  });
+
+  describe("function object inheritance", function() {
+
+    it("should inherit parent", function() {
+
+      function Parent(p) { this.p = p; }
+      function Child(c) { this.c = c; }
+
+      Child.prototype = new Parent('parent');
+
+      // Here the internal __proto__ points to Function.prototype
+      expect(Function.prototype.isPrototypeOf(Child)).toBe(true);
+
+      var child = new Child('child');
+
+      // The child instances internal __proto__ points to Parent.prototype
+      // isPrototypeOf checks the whole prototype chain
+      expect(Parent.prototype.isPrototypeOf(child)).toBe(true);
+
+      // Here the checking is done manually by going up the chain
+      // The first __proto__ is parent instance __proto__ and the second is the actual Parent.prototype
+      expect(Parent.prototype).toBe(child.__proto__.__proto__);
+    });
+
+    // TODO: An example of when a change in inherited prototype affects all instances
+
+  });
+
+  describe("literal object inheritance", function() {
+    // TODO: Examples of Object.create
+  });
+
+  describe("inheritance and constructors", function() {
+    // TODO: Examples of how constructors are used and when they matter
+  }); 
+
+});
