@@ -39,6 +39,11 @@ describe("learning prototypes", function() {
       expect(typeof number === 'number').toBe(true);
     });
 
+    it('should stil behave like an object when is a primitive', function () {
+      var number = 0;
+      expect(typeof number.toString).toBe('function');
+    });
+
   });
 
   // TODO: A Function Declaration vs. Function Expressions
