@@ -63,8 +63,20 @@ Make sure the functionalities are encapsulated (doesn't pollute global scope, be
 Make the tests in modularization_spec.js pass
 
 
+Objects
+-------------------------
+
+In JavaScript, almost everything is an object. All primitive types except null and undefined are treated as objects. They can be assigned properties (assigned properties of some types are not persistent), and they have all characteristics of objects.
+
+It's important to understand the basics of objects and what properties they have before starting to learn prototypes. 
+Make the tests in objects_spec.js pass.
+
 Prototypes
 -------------------------
+
+All objects in JavaScript are descended from Object; all objects inherit methods and properties from Object.prototype.
+
+Since Javascript doesn't exactly have sub-class objects, prototype is a useful workaround to make a "base class" object of certain functions that act as objects.
 
 
 Inheritance

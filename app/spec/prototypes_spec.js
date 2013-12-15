@@ -1,51 +1,5 @@
 describe("learning prototypes", function() {
 
-   describe('introduction to objects', function () {
-     
-    it('should be an object when instantiated directly', function () {
-
-      var object1 = new Object(),
-          object2 = {};
-
-      expect(object1 instanceof Object).toBe(true);
-      expect(object2 instanceof Object).toBe(true);
-    });
-
-    it('should be an object when function object is created and then instantiated with the "new" keyword', function () {
-
-      var Person = function() {};
-
-      expect(Person instanceof Object).toBe(true);
-      expect(new Person() instanceof Object).toBe(true);
-    });
-
-    it('should be an object when using String or Number', function () {
-
-      var str = new String('hello'), 
-          number = new Number(0);
-
-      expect(str instanceof Object).toBe(true);
-      expect(number instanceof Object).toBe(true);
-    });
-
-    it('should not be an object when primitive', function () {
-
-      var str = 'hello',
-          number = 0;
-
-      expect(str instanceof Object).toBe(false);
-      expect(number instanceof Object).toBe(false);
-      expect(typeof str === 'string').toBe(true);
-      expect(typeof number === 'number').toBe(true);
-    });
-
-    it('should stil behave like an object when is a primitive', function () {
-      var number = 0;
-      expect(typeof number.toString).toBe('function');
-    });
-
-  });
-
   // TODO: A Function Declaration vs. Function Expressions
   // http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/
 
