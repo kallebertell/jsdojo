@@ -86,7 +86,7 @@ Before starting to work on prototypes_spec.js, there's a few facts you should kn
 * all objects inherit a constructor property from their prototype
 * since every function gets a prototype, the constructor function has one too
 * the prototype object is meant to be used on constructor functions, basically functions that will be called using the new operator to create new object instances
-* when an object is created, its __proto__ property is set to reference the same object as its its constructor's prototype object
+* when an object is created, its \_\_proto\_\_ property is set to reference the same object as its its constructor's prototype object
 
 
 Inheritance
