@@ -78,6 +78,16 @@ All objects in JavaScript are descended from Object; all objects inherit methods
 
 Since Javascript doesn't exactly have sub-class objects, prototype is a useful workaround to make a "base class" object of certain functions that act as objects.
 
+Before starting to work on prototypes_spec.js, there's a few facts you should know about prototypes:
+
+* every function gets a prototype (ie. prototype is always a property of a function object)
+* all functions inherit from Function.prototype
+* a function’s prototype property is the object that will be assigned as the prototype to all instances created when this function is used as a constructor
+* all objects inherit a constructor property from their prototype
+* since every function gets a prototype, the constructor function has one too
+* the prototype object is meant to be used on constructor functions, basically functions that will be called using the new operator to create new object instances
+* when an object is created, its __proto__ property is set to reference the same object as its its constructor's prototype object
+
 
 Inheritance
 -------------------------
