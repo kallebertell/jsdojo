@@ -95,20 +95,25 @@ Inheritance
 
 Get to know Node
 -------------------------
+http://nodejs.org/
 
 
 Get to know NPM
 -------------------------
+https://npmjs.org/
 
 
 Get to know Yeoman
 -------------------------
+http://yeoman.io/
 
 
 Get to know Bower
 -------------------------
+https://github.com/bower/bower
 
 
 Get to know Grunt
 -------------------------
+http://gruntjs.com/
 
