@@ -10,21 +10,23 @@ describe("Prototypes", function() {
   describe("Functions and the prototype property", function() {
 
     it("should create a prototype for a function", function() {
-           
+      function Blank(){};     
       expect(Blank.prototype).not.toBe(undefined);
     });
 
     it("should inherit from Function.prototype", function() {
-      
+      function Blank(){};
       expect(Function.prototype.isPrototypeOf(Blank)).toBe(true);
     });
 
     it("should assign function's prototype as the prototype for new instance", function() {
-      
+      function Blank(){};
+      var instance = new Blank();
       expect(Blank.prototype.isPrototypeOf(instance)).toBe(true);
     });
  
     it("should inherit a constructor property from its prototype", function() {
+      function Blank(){};
 
       expect(Blank.constructor).toBe(Function.constructor);
 
@@ -38,7 +40,8 @@ describe("Prototypes", function() {
     });
 
     it("should have a prototype if is a constructor", function() {
-     
+      function Blank(){};
+
       expect(Blank.constructor.prototype).not.toBe(undefined);
     });
 
@@ -67,18 +70,18 @@ describe("Prototypes", function() {
   describe("Literal objects and the prototype property", function() {
 
     it("should not create a prototype property for an object literal", function() {
-      
+      var o = {};
       expect(o.prototype).toBe(undefined);
     });
 
     it("should not create a prototype property for an object literal when using Object.create", function() {
-
+      var o = Object.create(Object.prototype);
       expect(o.prototype).toBe(undefined);
       expect(Object.create(Function.prototype).prototype).toBe(undefined);
     });
 
     it("should inherit from Object.prototype when an object literal", function() {
-      
+      var o = {};
       expect(Object.getPrototypeOf(o)).toBe(Object.prototype);
     });
 
@@ -88,17 +91,24 @@ describe("Prototypes", function() {
 
     it("should assign its internal __proto__ property to its parents prototype", function() {
       
+      var Blank = function(){};
+      var o = {};
+
       expect(Blank.__proto__).toBe(Function.prototype); // Tip: Blank is function
       expect(o.__proto__).toBe(Object.prototype); // Tip: o is object literal
 
     });
 
-    it("should assign instanciated object internal __proto__ to its constructor's prototype object", function() {
+    it("should assign instantiated object internal __proto__ to its constructor's prototype object", function() {
+      var Blank = function(){};
+      var instance = new Blank();
 
-      expect(isntance.__proto__).toBe(Blank.prototype);
+      expect(instance.__proto__).toBe(Blank.prototype);
     });
 
     it("should not have a prototype property when an instance", function() {
+      var Blank = function(){};
+      var instance = new Blank();
 
       expect(instance.prototype).toBe(undefined);
     });

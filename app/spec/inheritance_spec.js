@@ -4,7 +4,10 @@ describe("Inheritance", function() {
 
     it("should inherit parent", function() {
 
-      // FIXME
+      function Parent(){};
+
+      function Child(){};
+      Child.prototype = new Parent();
 
       // Here the internal __proto__ points to Function.prototype
       expect(Function.prototype.isPrototypeOf(Child)).toBe(true);
@@ -14,6 +17,7 @@ describe("Inheritance", function() {
       // The child instances internal __proto__ points to Parent.prototype
       // isPrototypeOf checks the whole prototype chain
       expect(Parent.prototype.isPrototypeOf(child)).toBe(true);
+      expect(Child.prototype.isPrototypeOf(child)).toBe(true);
 
       // Here the checking is done manually by going up the chain
       // The first __proto__ is parent instance __proto__ and the second is the actual Parent.prototype
@@ -22,7 +26,9 @@ describe("Inheritance", function() {
 
     it("should modify instance when prototype is changed", function() {
 
-      // FIXME
+      function Boo(){};
+
+      var booInstance = new Boo();
 
       Boo.prototype.message = function() {
         return 'bo!';
