@@ -4,10 +4,7 @@ describe("Inheritance", function() {
 
     it("should inherit parent", function() {
 
-      function Parent() {}
-      function Child() {}
-
-      Child.prototype = new Parent();
+      // FIXME
 
       // Here the internal __proto__ points to Function.prototype
       expect(Function.prototype.isPrototypeOf(Child)).toBe(true);
@@ -25,21 +22,19 @@ describe("Inheritance", function() {
 
     it("should modify instance when prototype is changed", function() {
 
-      function Boo() {}
+      // FIXME
 
       Boo.prototype.message = function() {
         return 'bo!';
       }
 
-      var instance = new Boo();
-
-      expect(instance.message()).toBe('bo!');
+      expect(booInstance.message()).toBe('bo!');
 
       Boo.prototype.message = function() {
         return '!ob';
       }
 
-      expect(instance.message()).toBe('!ob');
+      expect(booInstance.message()).toBe('!ob');
 
     });
 
@@ -75,7 +70,7 @@ describe("Inheritance", function() {
       expect(ladaInstance.getSpecs).toBe(audiInstance.getSpecs);
     });
 
-    it("should actually use prototype functions instead of instance functions", function() {
+    it("should actually prefer using prototype functions instead of instance functions", function() {
 
       function Person(name) {
         this.name = name;
