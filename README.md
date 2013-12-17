@@ -92,6 +92,40 @@ Before starting to work on prototypes_spec.js, there's a few facts you should kn
 Inheritance
 -------------------------
 
+**Java**
+```
+public class Mammal {
+    public void breath() {
+        // do some breathing
+    }
+}
+public class Cat extends Mammal {
+    // now cat too can breath!
+}
+```
+
+**JavaScript**
+```
+function Mammal() {
+}
+Mammal.prototype.breath = function() {
+    // do some breathing
+}
+function Cat() {
+}
+Cat.prototype = new Mammal()
+Cat.prototype.constructor = Cat
+// now cat too can breath!
+```
+
+Javascript uses prototype inheritance that works like this:
+
+* an object inherits all the properties of its parent
+* an object can override a property of its parent by setting the property on itself
+* a constructor creates objects
+* each constructor has an associated prototype object, which is simply another object
+* when an object is created, it’s parent is set to the prototype object associated with the constructor that created it
+
 
 Get to know Node
 -------------------------
